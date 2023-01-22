@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Nilambar\NepaliDate\NepaliDate;
 use Intervention\Image\Facades\Image;
+use PDF;
 
 class AppController extends Controller
 {
@@ -109,10 +110,28 @@ class AppController extends Controller
         {
             $extension = $actual_file->getClientOriginalExtension();
             $file_name = date('YmdHis') . rand(1, 99999) . '.' . $extension;
-            $actual_file->move(public_path('uploads/word-file'), $file_name);
+            $actual_file->move(public_path('uploads/pdf-file'), $file_name);
 
-            $wordPath = public_path('uploads/word-file/') . $file_name;
-        
+            $wordPath = public_path('uploads/pdf-file/') . $file_name;
+            
+            $domPdfPath = base_path('vendor/dompdf/dompdf');
+            \PhpOffice\PhpWord\Settings::setPdfRendererPath($domPdfPath);
+            \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');
+
+            $Content = \PhpOffice\PhpWord\IOFactory::load($wordPath);
+            
+            $PDFWriter = \PhpOffice\PhpWord\IOFactory::createWriter($Content,'PDF');
+
+            $PdfPath = str_replace($extension ,'pdf', $wordPath);
+
+            $PDFWriter->save($PdfPath);
+            if ( file_exists($wordPath) && $extension != $request->image_format)
+            {
+                unlink($wordPath);
+            }
+            $pdf_file = str_replace($extension , 'pdf', $file_name);
+            return response()->json(['pdf_file' => $pdf_file]);
         }
+        return response()->json(['pdf_file' => null]);
     }
 }

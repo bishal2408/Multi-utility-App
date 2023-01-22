@@ -82,16 +82,20 @@
                     <input type="file" name="word_to_pdf" id="word_to_pdf" class="form-control">
                     <input type="submit" class="btn btn-primary my-4">
                 </form>
+                <a href="" id="pdf-file" style="display: none;" download="" target="_blank">
+                    
+                </a>
             </div>
         </div>
     </div>
     <script src="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/js/nepali.datepicker.v4.0.min.js" type="text/javascript"></script>
         <script type="text/javascript">
+            // load nepali date picker js plugin
             window.onload = function() {
                 var mainInput = document.getElementById("nepali-datepicker");
                 mainInput.nepaliDatePicker();
             };
-
+            // trigger onclick event whenever you press enter
             $('input[type=text]').each(function(){
                 $(this).on("keyup", function(event) {
                     if (event.keyCode === 13) {
@@ -116,6 +120,7 @@
                     }
                 });
             }
+
             function getEnglishDate(){
                 var nepali_date = $('#nepali-datepicker').val();
                 $.ajax({
@@ -147,6 +152,7 @@
                     }
                 });
             }
+            // get the compressed image
             $(document).on('submit','#myform', function(e){
                 e.preventDefault();
                 var formData = new FormData(this);
@@ -164,6 +170,7 @@
                     }
                 });
             });
+            // get requested converted image
             $(document).on('submit','#convertImageForm', function(e){
                 e.preventDefault();
                 var formData = new FormData(this);
@@ -177,6 +184,28 @@
                     success:function(data){
                         $('#converted-image').attr('src', "{{ asset('uploads/converted-images/')}}"+ '/' + data.converted_image);
                         $('#converted-image').css('display', 'block');
+                    }
+                });
+            });
+            // get word to pdf file
+            $(document).on('submit','#wordToPdfForm', function(e){
+                e.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    type:'POST',
+                    url: $(this).attr('action'),
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success:function(data){
+                        $('#pdf-file').attr({
+                            'href': "{{ asset('uploads/pdf-file/')}}"+ '/' + data.pdf_file,
+                            'download': data.pdf_file,
+                        });
+                        let link_name = "<span> Download " + data.pdf_file + "</span>";
+                        $('#pdf-file').html(link_name);
+                        $('#pdf-file').css('display', 'block');
                     }
                 });
             });
