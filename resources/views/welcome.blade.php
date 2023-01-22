@@ -80,11 +80,9 @@
                     @csrf
                     <label for="word_to_file"></label>
                     <input type="file" name="word_to_pdf" id="word_to_pdf" class="form-control">
-                    <input type="submit" class="btn btn-primary my-4">
+                    <input type="submit" class="btn btn-primary my-4" value="Convert to pdf">
                 </form>
-                <a href="" id="pdf-file" style="display: none;" download="" target="_blank">
-                    
-                </a>
+                <a href="" id="pdf-file" style="display: none;" download="" target="_blank"></a>
             </div>
         </div>
     </div>
