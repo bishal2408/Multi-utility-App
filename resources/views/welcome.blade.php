@@ -88,11 +88,11 @@
 
         <div class="unit-converter">
             <h3>Unit Converter</h3>
-            <div class="d-flex">
-                <div class="d-flex flex-column w-25">
-                    <input type="number" name="input_value" id="input_value" class="form-control my-3">
+            <div class="d-flex w-100">
+                <div class="d-flex flex-column w-50">
+                    <input type="number" name="input_value" id="input_value" class="form-control my-3" placeholder="Input">
                     <select id="input_unit" class="form-control">
-                        <option value="">----</option>
+                        <option value="">--Select unit--</option>
                         <option value="km">Kilometer</option>
                         <option value="m">Meter</option>
                         <option value="cm">Centimeter</option>
@@ -101,14 +101,13 @@
                         <option value="yard">Yard</option>
                         <option value="foot">Foot</option>
                         <option value="inches">Inches</option>
-                        <option value="f">Farhenite</option>
                     </select>
                 </div>
                 <h1 class="mx-4">=</h1>
-                <div class="d-flex flex-column w-25">
-                    <input type="number" name="output_value" id="output_value" class="form-control my-3">
+                <div class="d-flex flex-column w-50">
+                    <input type="number" name="output_value" id="output_value" class="form-control my-3" placeholder="Output">
                     <select id="output_unit" class="form-control">
-                        <option value="">----</option>
+                        <option value="">--Select unit--</option>
                         <option value="km">Kilometer</option>
                         <option value="m">Meter</option>
                         <option value="cm">Centimeter</option>
@@ -241,6 +240,7 @@
             });
         });
 
+        // for unit conversion
         $("#input_unit").change(function() {
             var inputName = $(this).val();
             var outputName = $('#output_unit').val();

@@ -6,8 +6,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Nilambar\NepaliDate\NepaliDate;
 use Intervention\Image\Facades\Image;
-use ZipArchive;
-use RarArchive;
 
 class AppController extends Controller
 {
