@@ -6,7 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Nilambar\NepaliDate\NepaliDate;
 use Intervention\Image\Facades\Image;
-use PDF;
+use ZipArchive;
+use RarArchive;
 
 class AppController extends Controller
 {
@@ -133,5 +134,218 @@ class AppController extends Controller
             return response()->json(['pdf_file' => $pdf_file]);
         }
         return response()->json(['pdf_file' => null]);
+    }
+
+    public function unitConverter(Request $request)
+    {
+        $convertTo = $request->input('convert_to');
+        $input_value = $request->input('input_value');
+        if($request->get('input_value') == null)
+            return response()->json(['conversionValue' => null]);
+        $conversionValue = 0;
+        switch($convertTo)
+        {
+            // kilometer to other conversion
+            case 'km_to_km':
+                $conversionValue = $input_value;
+                break;
+            case 'km_to_m':
+                $conversionValue = $input_value * 1000;
+                break;
+            case 'km_to_cm':
+                $conversionValue = $input_value * 100000;
+                break;
+            case 'km_to_mm':
+                $conversionValue = $input_value * 1000000;
+                break;
+            case 'km_to_mile':
+                $conversionValue = $input_value * 0.621371192;
+                break;
+            case 'km_to_yard':
+                $conversionValue = $input_value * 1093.61;
+                break;
+            case 'km_to_foot':
+                $conversionValue = $input_value * 3280.84;
+                break;
+            case 'km_to_inches':
+                $conversionValue = $input_value * 39370.1;
+                break;
+            //meter to other conversion
+            case 'm_to_km':
+                $conversionValue = $input_value * 0.001;
+                break;
+            case 'm_to_m':
+                $conversionValue = $input_value;
+                break;
+            case 'm_to_cm':
+                $conversionValue = $input_value * 100;
+                break;
+            case 'm_to_mm':
+                $conversionValue = $input_value * 1000;
+                break;
+            case 'm_to_mile':
+                $conversionValue = $input_value * 0.000621371;
+                break;
+            case 'm_to_yard':
+                $conversionValue = $input_value * 1.09361;
+                break;
+            case 'm_to_foot':
+                $conversionValue = $input_value * 3.28084;
+                break;
+            case 'm_to_inches':
+                $conversionValue = $input_value * 39.3701;
+                break;
+            //centimeter to other conversion
+            case 'cm_to_km':
+                $conversionValue = $input_value * 0.00001;
+                break;
+            case 'cm_to_m':
+                $conversionValue = $input_value * 0.01;
+                break;
+            case 'cm_to_cm':
+                $conversionValue = $input_value;
+                break;
+            case 'cm_to_mm':
+                $conversionValue = $input_value * 10;
+                break;
+            case 'cm_to_mile':
+                $conversionValue = $input_value / 160900;
+                break;
+            case 'cm_to_yard':
+                $conversionValue = $input_value / 91.44;
+                break;
+            case 'cm_to_foot':
+                $conversionValue = $input_value / 30.48;
+                break;
+            case 'cm_to_inches':
+                $conversionValue = $input_value / 2.54;
+                break;
+            //mm to other conversion
+            case 'mm_to_km':
+                $conversionValue = $input_value * 1e-6;
+                break;
+            case 'mm_to_m':
+                $conversionValue = $input_value * 0.001;
+                break;
+            case 'mm_to_cm':
+                $conversionValue = $input_value * 0.1;
+                break;
+            case 'mm_to_mm':
+                $conversionValue = $input_value;
+                break;
+            case 'mm_to_mile':
+                $conversionValue = $input_value / 1.609e+6;
+                break;
+            case 'mm_to_yard':
+                $conversionValue = $input_value / 914.4;
+                break;
+            case 'mm_to_foot':
+                $conversionValue = $input_value / 304.8;
+                break;
+            case 'mm_to_inches':
+                $conversionValue = $input_value / 25.4;
+                break;
+            // mile to other conversion
+            case 'mile_to_km':
+                $conversionValue = $input_value * 63360;
+                break;
+            case 'mile_to_m':
+                $conversionValue = $input_value * 1609.34;
+                break;
+            case 'mile_to_cm':
+                $conversionValue = $input_value * 160933.999997549;
+                break;
+            case 'mile_to_mm':
+                $conversionValue = $input_value * 1.609e+6;
+                break;
+            case 'mile_to_mile':
+                $conversionValue = $input_value;
+                break;
+            case 'mile_to_yard':
+                $conversionValue = $input_value * 1760;
+                break;
+            case 'mile_to_foot':
+                $conversionValue = $input_value * 5280;
+                break;
+            case 'mile_to_inches':
+                $conversionValue = $input_value * 63360;
+                break;
+            // yard to other conversion
+            case 'yard_to_km':
+                $conversionValue = $input_value / 1094;
+                break;
+            case 'yard_to_m':
+                $conversionValue = $input_value / 1.094;
+                break;
+            case 'yard_to_cm':
+                $conversionValue = $input_value * 91.44;
+                break;
+            case 'yard_to_mm':
+                $conversionValue = $input_value * 914.4;
+                break;
+            case 'yard_to_mile':
+                $conversionValue = $input_value / 1760;
+                break;
+            case 'yard_to_yard':
+                $conversionValue = $input_value;
+                break;
+            case 'yard_to_foot':
+                $conversionValue = $input_value * 3;
+                break;
+            case 'yard_to_inches':
+                $conversionValue = $input_value * 36;
+                break;
+            // foot to other conversion
+            case 'foot_to_km':
+                $conversionValue = $input_value / 3281;
+                break;
+            case 'foot_to_m':
+                $conversionValue = $input_value / 3.281;
+                break;
+            case 'foot_to_cm':
+                $conversionValue = $input_value * 30.48;
+                break;
+            case 'foot_to_mm':
+                $conversionValue = $input_value * 304.8;
+                break;
+            case 'foot_to_mile':
+                $conversionValue = $input_value / 5280;
+                break;
+            case 'foot_to_yard':
+                $conversionValue = $input_value / 3;
+                break;
+            case 'foot_to_foot':
+                $conversionValue = $input_value;
+                break;
+            case 'foot_to_inches':
+                $conversionValue = $input_value * 12;
+                break;
+            // inches to other conversions
+            case 'inches_to_km':
+                $conversionValue = $input_value / 39370;
+                break;
+            case 'inches_to_m':
+                $conversionValue = $input_value / 39.37;
+                break;
+            case 'inches_to_cm':
+                $conversionValue = $input_value * 2.54;
+                break;
+            case 'inches_to_mm':
+                $conversionValue = $input_value * 25.4;
+                break;
+            case 'inches_to_mile':
+                $conversionValue = $input_value / 63360;
+                break;
+            case 'inches_to_yard':
+                $conversionValue = $input_value / 36;
+                break;
+            case 'inches_to_foot':
+                $conversionValue = $input_value / 12;
+                break;
+            case 'inches_to_inches':
+                $conversionValue = $input_value;
+                break;
+        }
+        return response()->json(['conversionValue' => $conversionValue]);
     }
 }
