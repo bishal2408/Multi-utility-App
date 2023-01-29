@@ -221,3 +221,59 @@ $("#input_weight_value").on("input", function() {
         }
     });
 });
+
+// temperature unit converter
+$("#input_temperature_unit").change(function() {
+    var inputName = $(this).val();
+    var outputName = $('#output_temperature_unit').val();
+    if(outputName == ''){   
+        console.log(inputName);
+        $("#convert_to_temperature").attr('value', inputName);
+    }
+        
+    else{
+        $("#convert_to_temperature").attr('value', inputName + '_to_' + outputName);
+        var convert_to_temperature = $("#convert_to_temperature").val();
+        var inputValue = $("#input_temperature_value").val();
+        $.ajax({
+            type:'get',
+            url:'/temperature-converter',
+            data:{convert_to_temperature:convert_to_temperature, input_temperature_value: inputValue},
+            success:function(data){
+                $("#output_temperature_value").attr('value', data.conversionValue);
+            }
+        });
+    }
+});
+$("#output_temperature_unit").change(function () {
+    var outputName = $(this).val();
+    var inputName = $('#input_temperature_unit').val();
+    if(inputName == '')
+        $("#convert_to_temperature").attr('value', outputName);
+    else{
+        $("#convert_to_temperature").attr('value', inputName + '_to_' + outputName);
+        var convert_to_temperature = $("#convert_to_temperature").val();
+        var inputValue = $("#input_temperature_value").val();
+       
+        $.ajax({
+            type:'get',
+            url:'/temperature-converter',
+            data:{convert_to_temperature:convert_to_temperature, input_temperature_value: inputValue},
+            success:function(data){
+                $("#output_temperature_value").attr('value', data.conversionValue);
+            }
+        });
+    }
+});
+$("#input_temperature_value").on("input", function() {
+    var inputValue = $(this).val();
+    var convert_to_temperature = $("#convert_to_temperature").val();
+    $.ajax({
+        type:'get',
+        url:'/temperature-converter',
+        data:{convert_to_temperature:convert_to_temperature, input_temperature_value: inputValue},
+        success:function(data){
+            $("#output_temperature_value").attr('value', data.conversionValue);
+        }
+    });
+});

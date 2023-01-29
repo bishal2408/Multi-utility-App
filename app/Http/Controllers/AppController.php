@@ -559,4 +559,46 @@ class AppController extends Controller
         }
         return response()->json(['conversionValue' => $conversionValue]);
     }
+
+    public function unitConverterTemperature(Request $request)
+    {
+        $convertTo = $request->input('convert_to_temperature');
+        $input_value = $request->input('input_temperature_value');
+        if($request->get('input_temperature_value') == null)
+            return response()->json(['conversionValue' => null]);
+        $conversionValue = 0;
+        switch ($convertTo) {
+            // celsius to other conversion
+            case 'C_to_F':
+                $conversionValue = ($input_value * 9/5) + 32;
+                break;
+            case 'C_to_K':
+                $conversionValue = $input_value + 273.15;
+                break;
+            case 'C_to_C':
+                $conversionValue = $input_value;
+                break;
+            // farhenite to other conversion
+            case 'F_to_F':
+                $conversionValue = $input_value;
+                break;
+            case 'F_to_C':
+                $conversionValue = ($input_value - 32) * 5 / 9;
+                break;
+            case 'F_to_K':
+                $conversionValue = ($input_value + 459.67) * 5 / 9;
+                break;
+            // Kelvin to other conversions
+            case "K_to_K":
+                $conversionValue = $input_value;
+                break;
+            case "K_to_C":
+                $conversionValue = $input_value - 273.15;
+                break;
+            case "K_to_F":
+                $conversionValue = ($input_value - 273.15) * 9/5 + 32;
+                break;
+        }
+        return response()->json(['conversionValue' => $conversionValue]);
+    }
 }

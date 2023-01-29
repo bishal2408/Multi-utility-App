@@ -155,6 +155,30 @@
                 </div>
                 <input type="hidden" id="convert_to_weight" name="convert_to_weight" value="">
             </div>
+
+            <h6>Temperature Converter</h6>
+            <div class="d-flex w-100 my-4">
+                <div class="d-flex flex-column w-50">
+                    <input type="number" name="input_temperature_value" id="input_temperature_value" class="form-control my-3" placeholder="Input">
+                    <select id="input_temperature_unit" class="form-control">
+                        <option value="">--Select unit--</option>
+                        <option value="C">Celsius</option>
+                        <option value="F">Fahrenheit</option>
+                        <option value="K">Kelvin</option>
+                    </select>
+                </div>
+                <h1 class="mx-4">=</h1>
+                <div class="d-flex flex-column w-50">
+                    <input type="number" name="output_temperature_value" id="output_temperature_value" class="form-control my-3" placeholder="Output">
+                    <select id="output_temperature_unit" class="form-control">
+                        <option value="">--Select unit--</option>
+                        <option value="C">Celsius</option>
+                        <option value="F">Fahrenheit</option>
+                        <option value="K">Kelvin</option>
+                    </select>
+                </div>
+                <input type="hidden" id="convert_to_temperature" name="convert_to_temprature" value="">
+            </div>
         </div>
     </div>
     <script src="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/js/nepali.datepicker.v4.0.min.js" type="text/javascript"></script>
