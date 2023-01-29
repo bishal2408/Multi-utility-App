@@ -29,5 +29,7 @@ Route::post('/word-to-pdf', [AppController::class, 'convertWordToPdf'])->name('w
 Route::get('/unit-converter', [AppController::class, 'unitConverterLength'])->name('unit.converter.length');
 Route::get('/weight-converter', [AppController::class, 'unitConverterWeight'])->name('unit.converter.weight');
 Route::get('/temperature-converter', [AppController::class, 'unitConverterTemperature'])->name('unit.converter.temperature');
+Route::get('/liquid-converter', [AppController::class, 'unitConverterLiquid'])->name('unit.converter.liquid');
+
 
 

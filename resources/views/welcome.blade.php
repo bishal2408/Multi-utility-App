@@ -177,7 +177,43 @@
                         <option value="K">Kelvin</option>
                     </select>
                 </div>
-                <input type="hidden" id="convert_to_temperature" name="convert_to_temprature" value="">
+                <input type="hidden" id="convert_to_temperature" name="convert_to_temperature" value="">
+            </div>
+
+            <h6>Liquid Converter</h6>
+            <div class="d-flex w-100 my-4">
+                <div class="d-flex flex-column w-50">
+                    <input type="number" name="input_liquid_value" id="input_liquid_value" class="form-control my-3" placeholder="Input">
+                    <select id="input_liquid_unit" class="form-control">
+                        <option value="">--Select unit--</option>
+                        <option value="liter">Liter</option>
+                        <option value="milliliter">Milliliter</option>
+                        <option value="cubicfoot">Cubic Foot</option>
+                        <option value="cubicinch">Cubic Inch</option>
+                        <option value="cubicmeter">Cubic Meter</option>
+                        <option value="fluidounce">Fluid Ounce</option>
+                        <option value="ustablespoon">US Tablespoon</option>
+                        <option value="usteaspoon">US Teaspoon</option>
+                        <option value="uscup">US Cup</option>
+                    </select>
+                </div>
+                <h1 class="mx-4">=</h1>
+                <div class="d-flex flex-column w-50">
+                    <input type="number" name="output_liquid_value" id="output_liquid_value" class="form-control my-3" placeholder="Output">
+                    <select id="output_liquid_unit" class="form-control">
+                        <option value="">--Select unit--</option>
+                        <option value="liter">Liter</option>
+                        <option value="milliliter">Milliliter</option>
+                        <option value="cubicfoot">Cubic Foot</option>
+                        <option value="cubicinch">Cubic Inch</option>
+                        <option value="cubicmeter">Cubic Meter</option>
+                        <option value="fluidounce">Fluid Ounce</option>
+                        <option value="ustablespoon">US Tablespoon</option>
+                        <option value="usteaspoon">US Teaspoon</option>
+                        <option value="uscup">US Cup</option>
+                    </select>
+                </div>
+                <input type="hidden" id="convert_to_liquid" name="convert_to_liquid" value="">
             </div>
         </div>
     </div>
