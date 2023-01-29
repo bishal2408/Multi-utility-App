@@ -134,7 +134,7 @@ class AppController extends Controller
         return response()->json(['pdf_file' => null]);
     }
 
-    public function unitConverter(Request $request)
+    public function unitConverterLength(Request $request)
     {
         $convertTo = $request->input('convert_to');
         $input_value = $request->input('input_value');
@@ -343,6 +343,219 @@ class AppController extends Controller
             case 'inches_to_inches':
                 $conversionValue = $input_value;
                 break;
+        }
+        return response()->json(['conversionValue' => $conversionValue]);
+    }
+
+    public function unitConverterWeight(Request $request)
+    {
+        $convertTo = $request->input('convert_to_weight');
+        $input_value = $request->input('input_weight_value');
+        if($request->get('input_weight_value') == null)
+            return response()->json(['conversionValue' => null]);
+        $conversionValue = 0;
+        switch ($convertTo) {
+            // tonne to other conversions
+            case 'tonne_to_kg':
+                $conversionValue = $input_value * 1000;
+                break;
+            case 'tonne_to_g':
+                $conversionValue = $input_value * 1000000;
+                break;
+            case 'tonne_to_mg':
+                $conversionValue = $input_value * 1000000000;
+                break;
+            case 'tonne_to_mcg':
+                $conversionValue = $input_value * 1000000000000;
+                break;
+            case 'tonne_to_stone':
+                $conversionValue = $input_value * 157.473;
+                break;
+            case 'tonne_to_pound':
+                $conversionValue = $input_value * 2204.62;
+                break;
+            case 'tonne_to_ounce':
+                $conversionValue = $input_value * 35274;
+                break;
+            case 'tonne_to_tone':
+                $conversionValue = $input_value;
+                break;
+            // kg to other conversions
+            case 'kg_to_kg':
+                $conversionValue = $input_value;
+                break;
+            case 'kg_to_tonne':
+                $conversionValue = $input_value / 1000;
+                break;
+            case 'kg_to_g':
+                $conversionValue = $input_value * 1000;
+                break;
+            case 'kg_to_mg':
+                $conversionValue = $input_value * 1000000;
+                break;
+            case 'kg_to_mcg':
+                $conversionValue = $input_value * 1000000000;
+                break;
+            case 'kg_to_stone':
+                $conversionValue = $input_value * 0.15747;
+                break;
+            case 'kg_to_pound':
+                $conversionValue = $input_value * 2.20462;
+                break;
+            case 'kg_to_ounce':
+                $conversionValue = $input_value * 35.274;
+                break;
+            // gram to other conversions
+            case 'g_tog':
+                $conversionValue = $input_value;
+                break;
+            case 'g_to_tonne':
+                $conversionValue = $input_value / 1000000;
+                break;
+            case 'g_to_kg':
+                $conversionValue = $input_value / 1000;
+                break;
+            case 'g_to_mg':
+                $conversionValue = $input_value * 1000;
+                break;
+            case 'g_to_mcg':
+                $conversionValue = $input_value * 1000000;
+                break;
+            case 'g_to_stone':
+                $conversionValue = $input_value / 6350.29;
+                break;
+            case 'g_to_pound':
+                $conversionValue = $input_value / 453.592;
+                break;
+            case 'g_to_ounce':
+                $conversionValue = $input_value / 28.35;
+                break;
+            // milligram to other conversions
+            case 'mg_to_mg':
+                $conversionValue = $input_value;
+                break;      
+            case 'mg_to_tonne':
+                $conversionValue = $input_value / 1e+9;
+                break;
+            case 'mg_to_kg':
+                $conversionValue = $input_value / 1e+6;
+                break;
+            case 'mg_to_g':
+                $conversionValue = $input_value / 1e+3;
+                break;
+            case 'mg_to_mcg':
+                $conversionValue = $input_value * 1e+3;
+                break;
+            case 'mg_to_stone':
+                $conversionValue = $input_value / 6.35e+9;
+                break;
+            case 'mg_to_pound':
+                $conversionValue = $input_value / 4.535e+9;
+                break;
+            case 'mg_to_ounce':
+                $conversionValue = $input_value / 2.835e+9;
+                break;
+            // microgram to other conversion
+            case 'mcg_to_tonne':
+                $conversionValue = $input_value * 1e-12;
+                break;
+            case 'mcg_to_kg':
+                $conversionValue = $input_value * 1e-9;
+                break;
+            case 'mcg_to_g':
+                $conversionValue = $input_value * 1e-6;
+                break;
+            case 'mcg_to_mg':
+                $conversionValue = $input_value * 0.001;
+                break;
+            case 'mcg_to_mcg':
+                $conversionValue = $input_value;
+                break;
+            case 'mcg_to_stone':
+                $conversionValue = $input_value * 6.35029 * 1e-9;
+                break;
+            case 'mcg_to_pound':
+                $conversionValue = $input_value * 2.20462 * 1e-9;
+                break;
+            case 'mcg_to_ounce':
+                $conversionValue = $input_value * 3.527396 * 1e-9;
+                break;
+            // pound to other conversions
+            case 'pound_to_pound':
+                $conversionValue = $input_value;
+                break;
+            case "pound_to_tonne":
+                $conversionValue = $input_value * 0.000453592;
+                break;
+            case "pound_to_kg":
+                $conversionValue = $input_value * 0.453592;
+                break;
+            case "pound_to_g":
+                $conversionValue = $input_value * 453.592;
+                break;
+            case "pound_to_mg":
+                $conversionValue = $input_value * 453592;
+                break;
+            case "pound_to_mcg":
+                $conversionValue = $input_value * 453592000;
+                break;
+            case "pound_to_stone":
+                $conversionValue = $input_value * 0.0714286;
+                break;
+            case "pound_to_ounce":
+                $conversionValue = $input_value * 16;
+                break;
+            // ounce to other conversions
+            case 'ounce_to_ounce':
+                $conversionValue = $input_value;
+                break;
+            case 'ounce_to_tonne':
+                $conversionValue = $input_value * 0.00003527396;
+                break;
+            case 'ounce_to_kg':
+                $conversionValue = $input_value * 0.0283495;
+                break;
+            case 'ounce_to_g':
+                $conversionValue = $input_value * 28.3495;
+                break;
+            case 'ounce_to_mg':
+                $conversionValue = $input_value * 28349.5;
+                break;
+            case 'ounce_to_mcg':
+                $conversionValue = $input_value * 28349.5e+6;
+                break;
+            case 'ounce_to_stone':
+                $conversionValue = $input_value * 0.00446429;
+                break;
+            case 'ounce_to_pound':
+                $conversionValue = $input_value * 0.0625;
+                break;
+            // stone to other conversions
+            case 'stone_to_stone':
+                $conversionValue = $input_value;
+                break;
+            case 'stone_to_tonne':
+                $conversionValue = $input_value * 0.15747;
+                break;
+            case 'stone_to_kg':
+                $conversionValue = $input_value * 6.35029;
+                break;
+            case 'stone_to_g':
+                $conversionValue = $input_value * 6350.29;
+                break;
+            case 'stone_to_mg':
+                $conversionValue = $input_value * 6.35029e+6;
+                break;
+            case 'stone_to_mcg':
+                $conversionValue = $input_value * 6.35029e+9;
+                break;
+            case 'stone_to_pound':
+                $conversionValue = $input_value * 14;
+                break;
+            case 'stone_to_ounce':
+                $conversionValue = $input_value * 224;
+                break;
+
         }
         return response()->json(['conversionValue' => $conversionValue]);
     }

@@ -26,5 +26,7 @@ Route::post('/image-compressor', [AppController::class, 'getCompressedImage'])->
 Route::post('/image-convert', [AppController::class, 'getConvertedImage'])->name('image.convert');
 Route::post('/word-to-pdf', [AppController::class, 'convertWordToPdf'])->name('word.to.pdf');
 
-Route::get('/unit-converter', [AppController::class, 'unitConverter'])->name('unit.converter');
+Route::get('/unit-converter', [AppController::class, 'unitConverterLength'])->name('unit.converter');
+Route::get('/weight-converter', [AppController::class, 'unitConverterWeight'])->name('unit.converter');
+
 
