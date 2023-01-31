@@ -216,6 +216,31 @@
                 <input type="hidden" id="convert_to_liquid" name="convert_to_liquid" value="">
             </div>
         </div>
+
+        <div class="youtube-video-downlaoder">
+            <h6>YouTube Video Downloader</h6>
+            <form method="post" action="{{ route('prepare') }}">
+                @csrf
+        
+                @if(Session::has('error'))
+                    <div class="alert alert-danger">{{ Session::get('error') }}</div>
+                @endif
+        
+                <div class="form-group">
+                    <input name="url" type="text" required class="form-control @error('url')  is-invalid @enderror" id="url"
+                           aria-describedby="url" value="{{ old('url') }}"
+                           autocomplete="off" autofocus>
+        
+                    @error('url')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+        
+                <div class="text-center">
+                    <button class="btn btn-lg btn-primary">Download</button>
+                </div>
+            </form>
+        </div>
     </div>
     <script src="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/js/nepali.datepicker.v4.0.min.js" type="text/javascript"></script>
     <script src={{ asset('js/index.js') }}></script>

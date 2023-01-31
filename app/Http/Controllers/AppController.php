@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -864,4 +865,7 @@ class AppController extends Controller
         }
         return response()->json(['conversionValue' => $conversionValue]);
     }
+
+    // Video download section
+    
 }
